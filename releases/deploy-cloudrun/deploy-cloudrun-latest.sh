@@ -26,7 +26,7 @@ GCP_BUILD_ENABLED=${GCP_BUILD_ENABLED:-true}
 DOCKERFILE_PATH=${DOCKERFILE_PATH:-true}
 
 if [ "$GCP_BUILD_ENABLED" == "true" ]; then
-    cp ./compose/production/django/Dockerfile .
+    cp $DOCKERFILE_PATH Dockerfile
     gcloud builds submit --project "${PROJECT_ID}" \
     --tag "${REGISTRY}/${PROJECT_ID}/${DOCKER_IMAGE_NAME}:${TAG}" .
     rm ./Dockerfile

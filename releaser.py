@@ -12,6 +12,7 @@ INITIAL_RELEASE = '0.1.0'
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
+
 def get_last_release(path):
     files = sorted(os.listdir(path), reverse=True)
     for file_name in files:
@@ -21,13 +22,15 @@ def get_last_release(path):
 
     return None
 
-def get_next_release(current_release):
-    if not current_release:
+
+def get_next_release(release):
+    if not release:
         return INITIAL_RELEASE
 
-    splitted = current_release.split('.')
+    splitted = release.split('.')
     splitted[1] = str(int(splitted[1]) + 1)
     return '.'.join(splitted)
+
 
 for script in SCRIPTS:
     script_name = ''.join(script.split('.')[:-1])
@@ -44,11 +47,8 @@ for script in SCRIPTS:
 
     if filecmp.cmp(script_path, latest_script_path, shallow=False) is False:
         copyfile(script_path, latest_script_path)
-        current_release = get_last_release(release_script_dir)
-        next_release = get_next_release(current_release)
-        # print('')
-        # value = print(f"Please enter a release [{next_release}]\n")
-        # value = input(f"Release: [{next_release}]:")
+        last_release = get_last_release(release_script_dir)
+        next_release = get_next_release(last_release)
         versioned_release = f'{release_script_dir}/{script_name}-{next_release}.{extension}'
         copyfile(script_path, versioned_release)
 
