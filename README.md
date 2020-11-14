@@ -1,2 +1,3 @@
 # dry-scripts
-DRY Scripts
+
+Hosting for general scripts.
